@@ -5,6 +5,7 @@ interface CounterProps {
   label: string;
   duration?: number;
   color?: string;
+  smallScreen?: boolean;
 }
 
 export default function Counter({
@@ -12,6 +13,7 @@ export default function Counter({
   label,
   duration = 2000,
   color = "#3A6788",
+  smallScreen = false,
 }: CounterProps) {
   const [count, setCount] = useState(0);
   const countRef = useRef<HTMLDivElement>(null);
@@ -62,10 +64,21 @@ export default function Counter({
 
   return (
     <div ref={countRef} className="flex flex-col items-center">
-      <div className="text-4xl md:text-5xl font-bold" style={{ color }}>
+      <div
+        className={`font-bold ${
+          smallScreen
+            ? "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+            : "text-4xl md:text-5xl"
+        }`}
+        style={{ color }}
+      >
         {count}+
       </div>
-      <div className="text-lg mt-2 text-gray-600 dark:text-gray-300">
+      <div
+        className={`mt-2 ${
+          smallScreen ? "text-xs sm:text-sm md:text-base lg:text-lg" : "text-lg"
+        } text-gray-200`}
+      >
         {label}
       </div>
     </div>

@@ -13,8 +13,12 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 // Pages
-import AboutUs from "./pages/AboutUs";
-import NotFound from "./pages/NotFound";
+import AboutUsPage from "./pages/AboutUs";
+import ServicesPage from "./pages/Services";
+import ContactPage from "./pages/ContactPage";
+import NotFoundPage from "./pages/NotFound";
+import PortfolioPage from "./pages/PortfolioPage";
+import PortfolioDetailsPage from "./pages/PortfolioDetailsPage";
 
 function HomePage() {
   return (
@@ -37,8 +41,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/portfolio/:slug" element={<PortfolioDetailsPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>

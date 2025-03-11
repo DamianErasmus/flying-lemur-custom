@@ -1,4 +1,5 @@
 import { useAppSelector } from "@/redux/hooks";
+import { Link } from "react-router-dom";
 
 // Define colors directly (we'll use these until we resolve the global color issue)
 const colors = {
@@ -11,8 +12,8 @@ const colors = {
 
 const ServiceCard = ({ service }: { service: any }) => {
   return (
-    <a
-      href={`/services/${service.slug}`}
+    <Link
+      to={`/services#${service.slug}`}
       className="block group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg"
     >
       <div
@@ -44,7 +45,7 @@ const ServiceCard = ({ service }: { service: any }) => {
           {service.title}
         </h3>
       </div>
-    </a>
+    </Link>
   );
 };
 
@@ -53,7 +54,7 @@ const Services = () => {
 
   return (
     <section
-      className="lg: px-24 py-20 w-full"
+      className="lg:px-24 py-20 w-full"
       style={{ backgroundColor: "#F5F5F5" }}
     >
       <div className="container mx-auto px-4">

@@ -48,10 +48,10 @@ export default function AboutUs() {
           className="py-10 md:py-0 md:h-screen flex items-center"
           aria-labelledby="about-title"
         >
-          <div className="container mx-auto md:px-24 px-4">
-            <div className="flex flex-col md:flex-row items-center md:gap-20 gap-10 h-full">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center gap-10 h-full">
               {/* Image - 30% width on desktop */}
-              <div className="w-full md:w-[45%]">
+              <div className="w-full md:w-[30%]">
                 <div className="relative">
                   <img
                     src="https://placehold.co/600x400/f5f5f5/3A6788?text=Devices"
@@ -91,16 +91,21 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* Stats Section with counters */}
+        {/* Stats Section with counters - Now side by side on all screen sizes */}
         <section
           className="py-10"
           style={{ backgroundColor: "#3A6788" }}
           aria-label="Company statistics"
         >
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-8 text-center text-white">
               <Suspense fallback={<CounterFallback />}>
-                <Counter end={50} label="Happy Clients" color="#FFFFFF" />
+                <Counter
+                  end={50}
+                  label="Happy Clients"
+                  color="#FFFFFF"
+                  smallScreen={true}
+                />
               </Suspense>
               <Suspense fallback={<CounterFallback />}>
                 <Counter
@@ -108,6 +113,7 @@ export default function AboutUs() {
                   label="Projects Completed"
                   duration={2500}
                   color="#FFFFFF"
+                  smallScreen={true}
                 />
               </Suspense>
               <Suspense fallback={<CounterFallback />}>
@@ -116,6 +122,7 @@ export default function AboutUs() {
                   label="Years of Experience"
                   duration={1500}
                   color="#FFFFFF"
+                  smallScreen={true}
                 />
               </Suspense>
             </div>
@@ -124,7 +131,7 @@ export default function AboutUs() {
 
         {/* Our Story Section - Story on left (65%), image on right (35%) */}
         <section className="py-20" aria-labelledby="our-story-title">
-          <div className="container mx-auto md:px-24 px-4">
+          <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center gap-10">
               {/* Story content - 65% width on desktop */}
               <div className="w-full md:w-[65%]">
