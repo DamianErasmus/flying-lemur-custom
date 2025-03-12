@@ -175,11 +175,12 @@ export default function PortfolioDetailsPage() {
                     className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
                   >
                     <img
-                      src={screenshot.image}
-                      alt={
-                        screenshot.alt ||
-                        `${portfolioItem.title} screenshot ${index + 1}`
+                      src={
+                        typeof screenshot === "string"
+                          ? screenshot
+                          : (screenshot as { image: string }).image
                       }
+                      alt={`${portfolioItem.title} screenshot ${index + 1}`}
                       className="w-full h-auto"
                       loading="lazy"
                     />

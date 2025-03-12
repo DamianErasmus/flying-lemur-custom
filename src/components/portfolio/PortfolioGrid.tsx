@@ -57,7 +57,10 @@ export function PortfolioGrid() {
       {/* Portfolio grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {filteredItems.map((item) => (
-          <PortfolioCard key={item.id} item={item} />
+          <PortfolioCard
+            key={item.id}
+            item={{ ...item, id: item.id.toString() }}
+          />
         ))}
       </div>
 

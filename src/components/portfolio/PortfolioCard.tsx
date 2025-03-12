@@ -12,7 +12,7 @@ const colors = {
 };
 
 export interface PortfolioItemProps {
-  id: string;
+  id: number | string;
   slug: string;
   image: string;
   alt: string;

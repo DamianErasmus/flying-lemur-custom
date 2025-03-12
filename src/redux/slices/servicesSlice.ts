@@ -14,15 +14,6 @@ interface ServicesState {
   services: ServiceItem[];
 }
 
-// Define colors directly (we'll use these until we resolve the global color issue)
-const colors = {
-  lapis: "#3A6788",
-  yelo: "#FFC86F",
-  oran: "#DC7A5F",
-  dark: "#261F1D",
-  gren: "#7EB77F",
-};
-
 const initialState: ServicesState = {
   services: [
     {
