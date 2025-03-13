@@ -59,7 +59,16 @@ export function PortfolioGrid() {
         {filteredItems.map((item) => (
           <PortfolioCard
             key={item.id}
-            item={{ ...item, id: item.id.toString() }}
+            item={{
+              id: item.id.toString(),
+              slug: item.slug,
+              image: item.image,
+              thumbnails: item.thumbnails,
+              alt: item.alt,
+              category: item.category,
+              title: item.title,
+              subtitle: item.subtitle,
+            }}
           />
         ))}
       </div>

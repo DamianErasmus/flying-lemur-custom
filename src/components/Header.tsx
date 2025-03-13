@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import lemurLogo from "@/assets/images/logo/lemur_logo.png";
 
 // Define colors directly (matching the homepage)
 const colors = {
@@ -23,6 +24,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const headerRef = useRef<HTMLElement>(null);
 
   // Check if current path matches the nav item path
   const isActive = (path: string) => {
@@ -55,14 +57,34 @@ const Header = () => {
       }
     };
 
+    // Set the CSS variable for header height
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        const height = headerRef.current.offsetHeight;
+        document.documentElement.style.setProperty(
+          "--header-height",
+          `${height}px`
+        );
+      }
+    };
+
+    // Initial setup
+    updateHeaderHeight();
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", updateHeaderHeight);
+
+    // Update header height when scroll state changes (as this can change the header height)
+    updateHeaderHeight();
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateHeaderHeight);
     };
-  }, []);
+  }, [isScrolled]);
 
   return (
     <header
+      ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? "bg-white shadow-md py-3" : "bg-transparent py-5"
       }`}
@@ -71,6 +93,11 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center" onClick={closeMenu}>
+            <img
+              src={lemurLogo}
+              alt="Flying Lemur Agency Logo"
+              className="h-10 w-auto mr-2"
+            />
             <span
               className="text-2xl font-bold tracking-tight"
               style={{ color: colors.dark }}

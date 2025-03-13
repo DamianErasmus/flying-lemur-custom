@@ -23,9 +23,7 @@ const ImageFallback = () => (
 );
 
 export default function AboutUs() {
-  const { title, description, ourStory } = useSelector(
-    (state: RootState) => state.about
-  );
+  const { title, ourStory } = useSelector((state: RootState) => state.about);
   const { logos: clientLogos } = useSelector(
     (state: RootState) => state.clients
   );
@@ -43,49 +41,55 @@ export default function AboutUs() {
       <Header />
 
       <main className="flex-grow">
-        {/* Hero Section with laptop/mobile image (30%) and description (70%) - Full screen height on laptop */}
+        {/* Hero Section with Our Story content (switched order) */}
         <section
-          className="py-10 md:py-0 md:h-screen flex items-center"
+          className="py-10 md:py-24 pb-10 md:min-h-screen flex items-center"
           aria-labelledby="about-title"
         >
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto lg:px-24 px-4">
             <div className="flex flex-col md:flex-row items-center gap-10 h-full">
-              {/* Image - 30% width on desktop */}
-              <div className="w-full md:w-[30%]">
-                <div className="relative">
-                  <img
-                    src="https://placehold.co/600x400/f5f5f5/3A6788?text=Devices"
-                    alt="Laptop and mobile phone on a table"
-                    className="rounded-lg shadow-md w-full"
-                    width="600"
-                    height="400"
-                    loading="eager" // Load hero image eagerly
-                  />
-                  {/* Decorative elements */}
-                  <div
-                    className="absolute -top-4 -right-4 w-16 h-16 rounded-full -z-10"
-                    style={{ backgroundColor: "#7EB77F" }}
-                    aria-hidden="true"
-                  ></div>
-                  <div
-                    className="absolute -bottom-3 left-1/4 w-32 h-3 rounded-full -z-10"
-                    style={{ backgroundColor: "#FFC86F" }}
-                    aria-hidden="true"
-                  ></div>
+              {/* Story content - 65% width on desktop (now on left) */}
+              <div className="w-full md:w-[65%] order-2 md:order-1">
+                <h1
+                  id="about-title"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8"
+                >
+                  Our Story
+                </h1>
+                <div className="space-y-6">
+                  {ourStory.map((paragraph, index) => (
+                    <p key={index} className="text-lg text-gray-700">
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
               </div>
 
-              {/* Description - 70% width on desktop */}
-              <div className="w-full md:w-[70%]">
-                <h1
-                  id="about-title"
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-                >
-                  {title}
-                </h1>
-                <p className="text-lg md:text-xl text-gray-700">
-                  {description}
-                </p>
+              {/* Image - 35% width on desktop (now on right) */}
+              <div className="w-full md:w-[35%] order-1 md:order-2">
+                <div className="relative">
+                  <Suspense fallback={<ImageFallback />}>
+                    <img
+                      src="https://placehold.co/600x800/f5f5f5/DC7A5F?text=Workspace"
+                      alt="Comfortable workspace"
+                      className="rounded-lg shadow-md w-full aspect-[3/4] object-cover"
+                      width="600"
+                      height="800"
+                      loading="eager"
+                    />
+                  </Suspense>
+                  {/* Decorative elements */}
+                  <div
+                    className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full -z-10"
+                    style={{ backgroundColor: "#FFC86F" }}
+                    aria-hidden="true"
+                  ></div>
+                  <div
+                    className="absolute -top-3 right-1/4 w-32 h-3 rounded-full -z-10"
+                    style={{ backgroundColor: "#DC7A5F" }}
+                    aria-hidden="true"
+                  ></div>
+                </div>
               </div>
             </div>
           </div>
@@ -125,57 +129,6 @@ export default function AboutUs() {
                   smallScreen={true}
                 />
               </Suspense>
-            </div>
-          </div>
-        </section>
-
-        {/* Our Story Section - Story on left (65%), image on right (35%) */}
-        <section className="py-20" aria-labelledby="our-story-title">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center gap-10">
-              {/* Story content - 65% width on desktop */}
-              <div className="w-full md:w-[65%]">
-                <h2
-                  id="our-story-title"
-                  className="text-3xl md:text-4xl font-bold mb-8"
-                >
-                  Our Story
-                </h2>
-                <div className="space-y-6">
-                  {ourStory.map((paragraph, index) => (
-                    <p key={index} className="text-lg text-gray-700">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </div>
-
-              {/* Image - 35% width on desktop */}
-              <div className="w-full md:w-[35%]">
-                <div className="relative">
-                  <Suspense fallback={<ImageFallback />}>
-                    <img
-                      src="https://placehold.co/600x800/f5f5f5/DC7A5F?text=Workspace"
-                      alt="Comfortable workspace"
-                      className="rounded-lg shadow-md w-full aspect-[3/4] object-cover"
-                      width="600"
-                      height="800"
-                      loading="lazy"
-                    />
-                  </Suspense>
-                  {/* Decorative elements */}
-                  <div
-                    className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full -z-10"
-                    style={{ backgroundColor: "#FFC86F" }}
-                    aria-hidden="true"
-                  ></div>
-                  <div
-                    className="absolute -top-3 right-1/4 w-32 h-3 rounded-full -z-10"
-                    style={{ backgroundColor: "#DC7A5F" }}
-                    aria-hidden="true"
-                  ></div>
-                </div>
-              </div>
             </div>
           </div>
         </section>

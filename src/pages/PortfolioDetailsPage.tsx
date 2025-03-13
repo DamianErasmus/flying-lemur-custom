@@ -62,6 +62,16 @@ export default function PortfolioDetailsPage() {
     );
   }
 
+  // Determine if scope is a string or array
+  const scopeArray = Array.isArray(portfolioItem.scope)
+    ? portfolioItem.scope
+    : portfolioItem.scope.split(", ");
+
+  // Determine if details is a string or array
+  const detailsArray = Array.isArray(portfolioItem.details)
+    ? portfolioItem.details
+    : portfolioItem.details.split("\n\n");
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -107,7 +117,15 @@ export default function PortfolioDetailsPage() {
 
                 <div className="mb-8">
                   <h2 className="text-xl font-semibold mb-3">Project Scope</h2>
-                  <p className="text-gray-700">{portfolioItem.scope}</p>
+                  {Array.isArray(scopeArray) ? (
+                    <ul className="list-disc pl-5 text-gray-700 space-y-1">
+                      {scopeArray.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-700">{portfolioItem.scope}</p>
+                  )}
                 </div>
 
                 <div className="mb-8">
@@ -115,11 +133,13 @@ export default function PortfolioDetailsPage() {
                     Project Details
                   </h2>
                   <div className="text-gray-700 space-y-4">
-                    {portfolioItem.details
-                      .split("\n\n")
-                      .map((paragraph, index) => (
-                        <p key={index}>{paragraph}</p>
-                      ))}
+                    {detailsArray.map((paragraph, index) => (
+                      <div
+                        key={index}
+                        dangerouslySetInnerHTML={{ __html: paragraph }}
+                        className="prose prose-sm max-w-none"
+                      />
+                    ))}
                   </div>
                 </div>
 
@@ -175,11 +195,7 @@ export default function PortfolioDetailsPage() {
                     className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
                   >
                     <img
-                      src={
-                        typeof screenshot === "string"
-                          ? screenshot
-                          : (screenshot as { image: string }).image
-                      }
+                      src={screenshot}
                       alt={`${portfolioItem.title} screenshot ${index + 1}`}
                       className="w-full h-auto"
                       loading="lazy"
@@ -191,7 +207,7 @@ export default function PortfolioDetailsPage() {
           </section>
         )}
 
-        {/* Related Projects - Optional enhancement */}
+        {/* Related Projects */}
         <section className="py-16">
           <div className="container mx-auto px-4">
             <h2

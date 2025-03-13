@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/redux/hooks";
 import { Link } from "react-router-dom";
 
-// Define colors directly (we'll use these until we resolve the global color issue)
+// Define colors directly
 const colors = {
   lapis: "#3A6788",
   yelo: "#FFC86F",
@@ -14,36 +14,33 @@ const ServiceCard = ({ service }: { service: any }) => {
   return (
     <Link
       to={`/services#${service.slug}`}
-      className="block group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg"
+      className="block group relative rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg h-full"
     >
-      <div
-        className="w-full aspect-[4/3] flex items-center justify-center rounded-lg"
-        style={{ backgroundColor: service.color }}
-      >
-        {/* Icon or simple graphic could go here */}
-        <div className="text-white text-5xl opacity-20">
-          {/* This is a placeholder for an icon */}●
-        </div>
+      <div className="w-full aspect-[4/3] overflow-hidden flex items-start justify-center">
+        <img
+          src={service.image}
+          alt={service.title}
+          className="w-full h-full object-cover object-bottom transition-transform duration-500 group-hover:scale-105"
+        />
       </div>
 
-      {/* Desktop hover text - appears on hover without darkening */}
-      <div className="absolute inset-0 flex flex-col justify-start pt-8 items-center pointer-events-none">
+      {/* Service title and description - centered with title at top */}
+      <div className="absolute inset-0 flex flex-col items-center justify-between p-6 pointer-events-none">
+        {/* Title at top - visible on mobile, hidden until hover on desktop */}
         <h3
-          className="text-white font-heading text-2xl md:text-3xl p-4 md:p-6 md:opacity-0 md:group-hover:opacity-100 md:translate-y-[-10px] md:group-hover:translate-y-0 transition-all duration-300"
+          className="text-white font-heading text-2xl text-center md:opacity-0 md:group-hover:opacity-100 md:translate-y-[-10px] md:group-hover:translate-y-0 transition-all duration-300 px-4 py-2 rounded"
           style={{ textShadow: "0 2px 4px rgba(0,0,0,0.5)" }}
         >
           {service.title}
         </h3>
-      </div>
 
-      {/* Mobile-only text - always visible without darkening */}
-      <div className="absolute inset-0 flex flex-col justify-start pt-8 items-center md:hidden pointer-events-none">
-        <h3
-          className="text-white font-heading text-2xl p-4"
-          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.5)" }}
-        >
-          {service.title}
-        </h3>
+        {/* Empty middle space */}
+        <div className="flex-grow"></div>
+
+        {/* Description at bottom - always hidden until hover */}
+        <p className="text-white text-sm text-center opacity-0 group-hover:opacity-90 transition-opacity duration-300 line-clamp-2 max-w-full bg-black/30 px-4 py-2 rounded">
+          {service.miniDescription}
+        </p>
       </div>
     </Link>
   );

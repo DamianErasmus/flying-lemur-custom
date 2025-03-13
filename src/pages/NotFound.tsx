@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Toaster } from "@/components/ui/sonner";
-
+import lemurLogo from "@/assets/images/logo/lemur_logo.png";
 export default function NotFound() {
   return (
     <div className="flex flex-col min-h-screen w-full">
@@ -51,8 +51,8 @@ export default function NotFound() {
               style={{ backgroundColor: "#FFC86F" }}
             ></div>
             <img
-              src="https://placehold.co/400x300/f5f5f5/3A6788?text=Flying+Lemur"
-              alt="Flying Lemur"
+              src={lemurLogo}
+              alt="Flying Lemur Logo"
               className="rounded-lg shadow-md"
               width="400"
               height="300"

@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { store } from "./redux/store";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -13,12 +13,13 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 // Pages
-import AboutUsPage from "./pages/AboutUs";
+import AboutUs from "./pages/AboutUs";
 import ServicesPage from "./pages/Services";
 import ContactPage from "./pages/ContactPage";
-import NotFoundPage from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 import PortfolioPage from "./pages/PortfolioPage";
 import PortfolioDetailsPage from "./pages/PortfolioDetailsPage";
+import BackToTop from "./components/ui/BackToTop";
 
 function HomePage() {
   return (
@@ -38,17 +39,18 @@ function HomePage() {
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/services" element={<ServicesPage />} />
-          <Route path="/contact" element={<ContactPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/portfolio/:slug" element={<PortfolioDetailsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+        <BackToTop />
+      </Router>
     </Provider>
   );
 }
